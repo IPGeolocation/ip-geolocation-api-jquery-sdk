@@ -20,5 +20,5 @@ ipgeoByApikeyAndIps('YOUR_API_KEY', ['1.1.1.1','2.2.22.2','34.1.1.3'])
 ```html
 timezoneByApikey('YOUR_API_KEY')
 timezoneByApikeyAndIp('YOUR_API_KEY', '1.1.1.1')
-timezoneByApikeyAndTz('YOUR_API_KEY', 'America/Los_Angeles')
+timezoneByApikeyAndTimezone('YOUR_API_KEY', 'America/Los_Angeles')
 ```
