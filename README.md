@@ -1,6 +1,7 @@
-# ip-geolocation-api-jQuery-sdk
+# IPGeolocation API JQuery SDK
 
-## Usage
+## Basic Usage
+Add the following script in your page:
 ```html
 <script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.0/ipgeolocation.min.js"></script>
 ```
@@ -19,5 +20,5 @@ ipgeoByApikeyAndIps('YOUR_API_KEY', ['1.1.1.1','2.2.22.2','34.1.1.3'])
 ```html
 timezoneByApikey('YOUR_API_KEY')
 timezoneByApikeyAndIp('YOUR_API_KEY', '1.1.1.1')
-timezoneByApikeyAndTz('YOUR_API_KEY', 'Asia/Karachi')
+timezoneByApikeyAndTz('YOUR_API_KEY', 'America/Los_Angeles')
 ```
