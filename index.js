@@ -31,7 +31,11 @@
 	request("timezone", apikey, "", "","");
 	}
 
-	function request(subUrl=null, apiKey="",fields="",ip="", tz=""){
+        function timezoneByApikeyLatitudeAndLongitude(apikey="", latitude="", longitude=""){
+        request("timezone", apikey, "", "","", latitude, longitude);
+        }
+
+	function request(subUrl=null, apiKey="",fields="",ip="", tz="", latitude="", longitude=""){
 	var URL = "";
 	if(apiKey){
 	URL = subUrl;
@@ -48,6 +52,14 @@
 	URL = URL + "&tz=";
 	URL = URL + tz;
 	}
+        if(latitude){
+        URL = URL + "&lat=";
+	URL = URL + latitude;
+        }
+        if(longitude){
+        URL = URL + "&long=";
+	URL = URL + longitude;
+        }
 
 	}
 
