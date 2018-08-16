@@ -21,4 +21,7 @@ ipgeoByApikeyAndIps('YOUR_API_KEY', ['1.1.1.1','2.2.22.2','34.1.1.3'])
 timezoneByApikey('YOUR_API_KEY')
 timezoneByApikeyAndIp('YOUR_API_KEY', '1.1.1.1')
 timezoneByApikeyAndTimezone('YOUR_API_KEY', 'America/Los_Angeles')
+
+// Query time zone information by latitude and longitude of the location
+timezoneByApikeyLatitudeAndLongitude('YOUR_API_KEY', '31.4816', '74.3551')
 ```
