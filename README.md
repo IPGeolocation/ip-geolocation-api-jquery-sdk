@@ -3,7 +3,7 @@
 ## Basic Usage
 Add the following script in your page:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.0/ipgeolocation.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.1/ipgeolocation.min.js"></script>
 ```
 ## Geolocation Lookup
 ```html
