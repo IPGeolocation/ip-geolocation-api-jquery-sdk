@@ -34,7 +34,7 @@ Add the following script in your HTML page:
 
 ## Geolocation Lookup
 
-There are four way to query geolocation from IPGeolocation API. You can use the following functions to get the geolocation as you require.
+There are four ways to query geolocation from IPGeolocation API. You can use the following functions to get the geolocation as you require.
 
 ```javascript
 // Query geolocation for the calling machine's IP address
@@ -62,7 +62,7 @@ ipgeoByApikeyAndIps('YOUR_API_KEY', ['1.1.1.1','2.2.2.2','3.3.3.3']);
 
 ## Time Zone API
 
-You can also query time zone information in four different ways. You can use the following functions to get the time zone information as your require.
+You can also query time zone information in four different ways. You can use the following functions to get the time zone information as you require.
 
 ```javascript
 // Query time zone information for the calling machine's IP address
