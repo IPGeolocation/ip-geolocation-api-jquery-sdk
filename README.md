@@ -34,7 +34,7 @@ Add the following script in your HTML page:
 
 ## Geolocation Lookup
 
-There are four functions that you can use to get geolocation from IPGeolocation API. Here are those functions:
+There are four way to query geolocation from IPGeolocation API. You can use the following functions to get the geolocation as you require.
 
 ```javascript
 // Query geolocation for the calling machine's IP address
@@ -52,17 +52,17 @@ ipgeoByApikeyFieldsAndIp('YOUR_API_KEY', 'geo,time_zone,currency', '1.1.1.1');
 
 ## Bulk Geolocations Lookup
 
-To lookup multiple IP addresses, use the following function.
+To query geolocation for multiple IP addresses, you can call the following function with your API key and list of IP addresses.
 **Note:** This function can only be used for paid subscriptions.
 
 ```javascript
 // Query geolocation for multiple IP addresses
-ipgeoByApikeyAndIps('YOUR_API_KEY', ['1.1.1.1','2.2.22.2','34.1.1.3']);
+ipgeoByApikeyAndIps('YOUR_API_KEY', ['1.1.1.1','2.2.2.2','3.3.3.3']);
 ```
 
 ## Time Zone API
 
-You can also lookup time zone information using the following three functions:
+You can also query time zone information in four different ways. You can use the following functions to get the time zone information as your require.
 
 ```javascript
 // Query time zone information for the calling machine's IP address
