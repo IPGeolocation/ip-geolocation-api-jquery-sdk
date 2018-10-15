@@ -84,6 +84,7 @@
 	}
 
 	function postRequest(subUrl=null, apiKey="", ips=""){
+            var responseData;
 	     $.ajax({
 		     type: "POST",
 		     url: "https://api.ipgeolocation.io/"+subUrl+"?apiKey="+apiKey+"",
@@ -101,7 +102,7 @@
                          return data.responseText;
 		     }
 		  });
-   return responseData;
+           return responseData;
 
 	}
 
