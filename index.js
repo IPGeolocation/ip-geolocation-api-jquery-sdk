@@ -1,41 +1,42 @@
-	function ipgeoByApikeyFieldsAndIp(apikey="", fields="" ,ip="") {
-	request("ipgeo", apikey, fields, ip,"");
+        function ipgeoByApikeyFieldsAndIp(apikey="", fields="" ,ip="") {
+	return request("ipgeo", apikey, fields, ip,"");
 	};
 
 	function ipgeoByApikeyAndFields(apikey="", fields="") {
-	request("ipgeo", apikey, fields, "","");
+	return request("ipgeo", apikey, fields, "","");
 	};
 
 	function ipgeoByApikeyAndIp(apikey="", ip="") {
-	request("ipgeo", apikey, "", ip,"");
+	return request("ipgeo", apikey, "", ip,"");
 	}
 	 
         function ipgeoByApikeyAndIps(apikey="", ips="") {
-	postRequest("ipgeo-bulk", apikey, ips);
+	return postRequest("ipgeo-bulk", apikey, ips);
 	}
 
 	function ipgeoByApikey(apikey=""){
-	request("ipgeo", apikey, "", "","")
+	return request("ipgeo", apikey, "", "","")
 	}
 
 
 	function timezoneByApikeyAndIp(apikey="" ,ip="") {
-	request("timezone", apikey, "", ip, "");
+	return request("timezone", apikey, "", ip, "");
 	}
 
 	function timezoneByApikeyAndTz(apikey="", tz="") {
-	request("timezone", apikey, "", "",tz);
+	return request("timezone", apikey, "", "",tz);
 	}
         
         function timezoneByApikey(apikey="") {
-	request("timezone", apikey, "", "","");
+	return request("timezone", apikey, "", "","");
 	}
 
         function timezoneByApikeyLatitudeAndLongitude(apikey="", latitude="", longitude=""){
-        request("timezone", apikey, "", "","", latitude, longitude);
+        return request("timezone", apikey, "", "","", latitude, longitude);
         }
 
 	function request(subUrl=null, apiKey="",fields="",ip="", tz="", latitude="", longitude=""){
+        var responseData;
 	var URL = "";
 	if(apiKey){
 	URL = subUrl;
@@ -63,19 +64,22 @@
 
 	}
 
-        $.get( "https://api.ipgeolocation.io/"+URL+"", function( data ) {
-            console.log(data);
-	})
-	.done(function(data) {
-	console.log("success");
-        console.log(data);
-        return data;
-	})
-	.fail(function(error) {
-	console.log("error");
-        console.log(error.responseText);
-        return error.responseText;
-	});
+      $.ajax({
+	     type: "GET",
+	     url: "https://api.ipgeolocation.io/"+URL+"",
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+	     async: false,
+	     success: function (data, status, jqXHR) {
+                  responseData = data;
+		 return data;
+	     },
+	     error: function (data, jqXHR, status) {
+                  responseData = data.responseText;
+		 return data.responseText;
+	     }
+            });
+        return responseData;
 
 	}
 
@@ -87,16 +91,17 @@
 		     contentType: "application/json; charset=utf-8",
 		     crossDomain: true,
 		     dataType: "json",
+                     async: false,
 		     success: function (data, status, jqXHR) {
-		         console.log(data);
+		         responseData = data;
                          return data;
 		     },
 		     error: function (data, jqXHR, status) {
-                         console.log(data.responseText);
+                         responseData = data.responseText;
                          return data.responseText;
 		     }
 		  });
+   return responseData;
 
 	}
-
 
