@@ -76,3 +76,34 @@ timezoneByApikeyAndTimezone('YOUR_API_KEY', 'America/New_York');
 
 // Query time zone information by latitude and longitude of the location
 timezoneByApikeyLatitudeAndLongitude('YOUR_API_KEY', '31.4816', '74.3551')
+```
+
+## Example
+
+Here is a sample code to use IP Geolocation API using JQuery SDK:
+
+```javascript
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.3/ipgeolocation.min.js"></script>
+
+<script>
+    var ip = sessionStorage.getItem('ip');
+    var country_name = sessionStorage.getItem('country_name');
+    var country_code2 = sessionStorage.getItem('country_code2');
+            
+    if (!ip || !country_name || !country_code2) {
+        var json = ipgeoByApikeyAndFields('PUT_YOUR_API_KEY_HERE', 'country_name,country_code2');
+        ip = json.ip;
+        country_name = json.country_name;
+        country_code2 = json.country_code2;
+                
+        sessionStorage.setItem('ip', ip);
+        sessionStorage.setItem('country_name', country_name);
+        sessionStorage.setItem('country_code2', country_code2);
+    }
+                
+    $(document).ready(function() {
+        alert('Hello ' + country_name + '!');		
+    });
+</script>
+```
