@@ -1,3 +1,4 @@
+var asyncParameter = true;
 var ipAddressParameter = "";
 var excludesParameter = "";
 var fieldsParameter = "";
@@ -5,6 +6,10 @@ var langParameter = "";
 var tzParameter = "";
 var latitudeParameter = "";
 var longitudeParameter = "";
+
+function setAsyncParameter(async = true) {
+    asyncParameter = async;
+}
 
 function setIPAddressParameter (ip = "") {
     ipAddressParameter = ip;
@@ -86,7 +91,7 @@ function request (subUrl, callback, apiKey = "") {
     }
 
     $.ajax ({
-        async: true,
+        async: asyncParameter,
         method: "GET",
         url: "https://api.ipgeolocation.io/".concat(subUrl, urlParameters, ""),
         contentType: "application/json",

@@ -35,61 +35,64 @@ Add the following script in your HTML page:
 
 ## Geolocation Lookup
 
-There are four ways to query geolocation from IPGeolocation API. You can use the following functions to get the geolocation as you require.
+You can use this SDK without an API key if you're using the _Request Origin_ feaure on IP Geolocation API.  
+Here are a few different ways of querying Geolocation for an IP address from IP Geolocation API.
 
 ```javascript
-// Query geolocation for the calling machine's IP address
-// Without API key
-geolocation(geoResponse)
-// with API key
-geolocationByAPIkey('YOUR_API_KEY', geoResponse)
+// Function to handle the response from IP Geolocation API.
+// **response** is a JSON object returned from IP Geolocation API.
+function handleResponse(response) {
+    console.log(response);
+}
+
+// Query geolocation for the calling machine's IP address with an API key (optional, if you're using _Request Origin_ feature at IP Geolocation API)
+getGeolocation(handleResponse, "YOUR_API_KEY");
+
+// To use the _Request Origin_ feature at IP Geolocation API, you skip the API key parameter.
+getGeolocation(handleResponse);
 
 // Query geolocation for an IP address e.g., '1.1.1.1'
-// Without API key
-geolocationByIP('1.1.1.1', geoResponse)
-// With API key
-geolocationByAPIkeyAndIP('YOUR_API_KEY', '1.1.1.1', geoResponse)
+setIPAddressParameter("1.1.1.1");
+getGeolocation(handleResponse, "YOUR_API_KEY");
 
 // Query only specific geolocation fields e.g., 'country_code2,time_zone,currency' for the calling machine's IP address
-// Without API key
-geolocationByFields('geo,time_zone,currency', geoResponse)
-// With API key
-geolocationByAPIkeyAndFields('YOUR_API_KEY', 'geo,time_zone,currency', geoResponse)
+setFieldsParameter("geo,time_zone,currency");
+getGeolocation(handleResponse, "YOUR_API_KEY");
 
-// Query only specific geolocation fields e.g., 'country_code2,time_zone,currency' for an IP address e.g., '1.1.1.1'
-// Without API key
-geolocationByFieldsAndIP('geo,time_zone,currency', '1.1.1.1', geoResponse)
-// With API key
-geolocationByAPIkeyFieldsAndIp('YOUR_API_KEY', 'geo,time_zone,currency', '1.1.1.1', geoResponse)
+// Query only specific fields like 'country_code2,time_zone,currency' for an IP address like '1.1.1.1' and skip the 'ip' field in the response
+setFieldsParameter("geo,time_zone,currency");
+setIPAddressParameter("1.1.1.1");
+setExcludesParameter("ip");
+getGeolocation(handleResponse, "YOUR_API_KEY");
 ```
 ## Time Zone API
 
-You can also query time zone information in four different ways. You can use the following functions to get the time zone information as you require.
+Here are a few different ways of querying Time Zone information from IP Geolocation API.
 
 ```javascript
-// Query time zone information for the calling machine's IP address
-// Without API key
-timezone(timezoneResponse)
-// With API key
-timezoneByAPIKey('YOUR_API_KEY', timezoneResponse)
+// Function to handle the response from IP Geolocation API.
+// **response** is a JSON object returned from IP Geolocation API.
+function handleResponse(response) {
+    console.log(response);
+}
+
+// Query time zone information for the calling machine's IP address with an API key (optional, if you're using _Request Origin_ feature at IP Geolocation API)
+getTimezone(handleResponse, "YOUR_API_KEY");
+
+// To use the _Request Origin_ feature at IP Geolocation API, you skip the API key parameter.
+getTimezone(handleResponse);
 
 // Query time zone information for an IP address e.g., '1.1.1.1'
-// Without API key
-timezoneByIP('1.1.1.1', timezoneResponse)
-// With API key
-timezoneByAPIKeyAndIP('YOUR_API_KEY', '1.1.1.1', timezoneResponse)
+setIPAddressParameter("1.1.1.1");
+getTimezone(handleResponse, "YOUR_API_KEY");
 
 // Query time zone infomration for a time zone ID like 'America/New_York'
-// Without API key
-timezoneByTz('America/Los_Angeles', timezoneResponse)
-// with API key
-timezoneByAPIKeyAndTz('YOUR_API_KEY', 'America/Los_Angeles', timezoneResponse)
+setTimezoneParameter("America/Los_Angeles");
+getTimezone(handleResponse, "YOUR_API_KEY");
 
 // Query time zone information by latitude and longitude of the location
-// Without API key
-timezoneByLatitudeAndLongitude( '31.4816', '74.3551', timezoneResponse)
-// With API key
-timezoneByAPIKeyLatitudeAndLongitude('YOUR_API_KEY', '31.4816', '74.3551', timezoneResponse)
+setCoordinatesParameter("31.4816", "74.3551");
+getTimezone(handleResponse, "YOUR_API_KEY");
 ```
 
 ## Example
@@ -98,30 +101,30 @@ Here is a sample code to use IP Geolocation API using JQuery SDK:
 
 ```javascript
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.4/ipgeolocation.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.5/ipgeolocation.min.js"></script>
 
 <script>
-    var ip = sessionStorage.getItem('ip');
-    var country_name = sessionStorage.getItem('country_name');
-    var country_code2 = sessionStorage.getItem('country_code2');
+    var ip = sessionStorage.getItem("ip");
+    var country_name = sessionStorage.getItem("country_name");
+    var country_code2 = sessionStorage.getItem("country_code2");
             
     if (!ip || !country_name || !country_code2) {
-        var json = geolocationByFields('country_name,country_code2', geoResponse);
-        ip = json.ip;
-        country_name = json.country_name;
-        country_code2 = json.country_code2;
-                
-        sessionStorage.setItem('ip', ip);
-        sessionStorage.setItem('country_name', country_name);
-        sessionStorage.setItem('country_code2', country_code2);
+        setFieldsParameter("country_name,country_code2");
+        getGeolocation(handleGeolocationResponse, "YOUR_API_KEY");
     }
                 
     $(document).ready(function() {
-        alert('Hello ' + country_name + '!');
+        alert("Hello " + country_name + "!");
     });
-    
-    function geoResponse(data){
-    console.log(data);
+
+    function handleGeolocationResponse(json) {
+        ip = json.ip;
+        country_name = json.country_name;
+        country_code2 = json.country_code2;
+
+        sessionStorage.setItem("ip", ip);
+        sessionStorage.setItem("country_name", country_name);
+        sessionStorage.setItem("country_code2", country_code2);
     }
 </script>
 ```
