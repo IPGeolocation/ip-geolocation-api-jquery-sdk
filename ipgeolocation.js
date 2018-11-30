@@ -31,54 +31,64 @@ function setCoordinatesParameter (latitude = "", longitude = "") {
     longitudeParameter = longitude;
 }
 
-function getGeolocation (apiKey = "", callback) {
-    request("ipgeo", apiKey, callback)
+function getGeolocation (callback, apiKey = "") {
+    request("ipgeo", apiKey, callback);
 }
 
-function getTimezone (apikey = "", callback) {
-    request("timezone", apikey, callback)
+function getTimezone (callback, apikey = "") {
+    request("timezone", callback, apikey);
 }
 
-function request (subUrl = null, apiKey = "", callback) {
-    var url = "";
+function addUrlParameter(parameters, parameterName, parameterValue) {
+    if (parameters) {
+        parameters = parameters.concat("&", parameterName, "=", parameterValue);
+    } else {
+        parameters = "?".concat(parameterName, "=", parameterValue);
+    }
+    return parameters;
+}
+
+function request (subUrl, callback, apiKey = "") {
+    var urlParameters = "";
+
+    if(!subUrl) {
+        callback({"status": 401, "message": "Given path to IP Geolocation API is not valid"});
+        return;
+    }
     
     if (apiKey) {
-        url = subUrl + "?apiKey=" + apiKey;
-    } else {
-        if (callback) {
-            callback({"status": 401, "message": "You cannot use IP Geolocation API without an API Key"});
-        }
-        return;
+        urlParameters = addUrlParameter(urlParameters, "apiKey=", apiKey);
     }
 
     if (excludesParameter) {
-        url = url + "&excludes=" + excludesParameter;
+        urlParameters = addUrlParameter(urlParameters, "excludes", excludesParameter);
     }
         
     if (fieldsParameter) {
-        url = url + "&fields=" + fieldsParameter;
+        urlParameters = addUrlParameter(urlParameters, "fields", fieldsParameter);
     }
 
     if (ipAddressParameter) {
-        url = url + "&ip=" + ipAddressParameter;
+        urlParameters = addUrlParameter(urlParameters, "ip", ipAddressParameter);
     }
 
     if (langParameter) {
-        url = url + "&lang=" + langParameter;
+        urlParameters = addUrlParameter(urlParameters, "lang", langParameter);
     }
     
     if (tzParameter) {
-        url = url + "&tz=" + tzParameter;
+        urlParameters = addUrlParameter(urlParameters, "tz", tzParameter);
     }
     
     if (latitudeParameter && longitudeParameter) {
-        url = url + "&lat=" + latitudeParameter + "&long=" + longitudeParameter;
+        urlParameters = addUrlParameter(urlParameters, "lat", latitudeParameter);
+        urlParameters = addUrlParameter(urlParameters, "long", longitudeParameter);
     }
 
     $.ajax ({
         async: true,
         method: "GET",
-        url: "https://api.ipgeolocation.io/" + url + "",
+        url: "https://api.ipgeolocation.io/".concat(subUrl, urlParameters, ""),
         contentType: "application/json",
         dataType: "json",
         success: function (data, status, jqXHR) {
@@ -93,3 +103,4 @@ function request (subUrl = null, apiKey = "", callback) {
         }
     });
 }
+
