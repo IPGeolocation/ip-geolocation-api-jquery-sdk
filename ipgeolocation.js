@@ -7,7 +7,7 @@ var tzParameter = "";
 var latitudeParameter = "";
 var longitudeParameter = "";
 
-function setAsyncParameter(async = true) {
+function setAsync(async = true) {
     asyncParameter = async;
 }
 
