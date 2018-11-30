@@ -57,7 +57,7 @@ function request (subUrl, callback, apiKey = "") {
     }
     
     if (apiKey) {
-        urlParameters = addUrlParameter(urlParameters, "apiKey=", apiKey);
+        urlParameters = addUrlParameter(urlParameters, "apiKey", apiKey);
     }
 
     if (excludesParameter) {
