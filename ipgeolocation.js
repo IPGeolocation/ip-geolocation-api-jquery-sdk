@@ -32,7 +32,7 @@ function setCoordinatesParameter (latitude = "", longitude = "") {
 }
 
 function getGeolocation (callback, apiKey = "") {
-    request("ipgeo", apiKey, callback);
+    request("ipgeo", callback, apiKey);
 }
 
 function getTimezone (callback, apikey = "") {
@@ -103,4 +103,3 @@ function request (subUrl, callback, apiKey = "") {
         }
     });
 }
-
