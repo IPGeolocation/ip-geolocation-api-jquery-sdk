@@ -51,6 +51,9 @@ getGeolocation(handleResponse, "YOUR_API_KEY");
 // To use the _Request Origin_ feature at IP Geolocation API, you skip the API key parameter.
 getGeolocation(handleResponse);
 
+// Toggle API calls' async behavior. By default, async is true.
+setAsync(false)
+
 // Query geolocation for an IP address e.g., '1.1.1.1'
 setIPAddressParameter("1.1.1.1");
 getGeolocation(handleResponse, "YOUR_API_KEY");
@@ -81,6 +84,9 @@ getTimezone(handleResponse, "YOUR_API_KEY");
 
 // To use the _Request Origin_ feature at IP Geolocation API, you skip the API key parameter.
 getTimezone(handleResponse);
+
+// Toggle API calls' async behavior. By default, async is true.
+setAsync(false)
 
 // Query time zone information for an IP address e.g., '1.1.1.1'
 setIPAddressParameter("1.1.1.1");
