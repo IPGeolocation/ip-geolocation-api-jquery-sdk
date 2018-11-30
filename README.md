@@ -109,13 +109,10 @@ Here is a sample code to use IP Geolocation API using JQuery SDK:
     var country_code2 = sessionStorage.getItem("country_code2");
             
     if (!ip || !country_name || !country_code2) {
+        setAsyncParameter(false);
         setFieldsParameter("country_name,country_code2");
         getGeolocation(handleGeolocationResponse, "YOUR_API_KEY");
     }
-                
-    $(document).ready(function() {
-        alert("Hello " + country_name + "!");
-    });
 
     function handleGeolocationResponse(json) {
         ip = json.ip;
@@ -126,5 +123,9 @@ Here is a sample code to use IP Geolocation API using JQuery SDK:
         sessionStorage.setItem("country_name", country_name);
         sessionStorage.setItem("country_code2", country_code2);
     }
+                
+    $(document).ready(function() {
+        alert("Hello " + country_name + "!");
+    });
 </script>
 ```
