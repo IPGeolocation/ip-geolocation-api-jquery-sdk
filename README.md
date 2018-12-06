@@ -45,24 +45,29 @@ function handleResponse(response) {
     console.log(response);
 }
 
-// Query geolocation for the calling machine's IP address with an API key (optional, if you're using "Request Origin" feature at IP Geolocation API)
+// Get geolocation for the calling machine's IP address with an API key (optional, if you're using "Request Origin" feature at IP Geolocation API)
 getGeolocation(handleResponse, "YOUR_API_KEY");
 
-// To use the "Request Origin" feature at IP Geolocation API, you skip the API key parameter.
+// Don't pass the API key if you're using the "Request Origin" feature at IP Geolocation API
 getGeolocation(handleResponse);
 
 // Toggle API calls' async behavior. By default, async is true.
 setAsync(false)
 
-// Query geolocation for an IP address e.g., "1.1.1.1"
+// Get geolocation for an IP address "1.1.1.1"
 setIPAddressParameter("1.1.1.1");
 getGeolocation(handleResponse, "YOUR_API_KEY");
 
-// Query only specific geolocation fields e.g., "country_code2,time_zone,currency" for the calling machine's IP address
+// Get geolocation for an IP address "1.1.1.1" in Russian language **
+setLanguageParameter("ru");
+setIPAddressParameter("1.1.1.1");
+getGeolocation(handleResponse, "YOUR_API_KEY");
+
+// Get the specific geolocation fields "country_code2,time_zone,currency" for the calling machine's IP address
 setFieldsParameter("geo,time_zone,currency");
 getGeolocation(handleResponse, "YOUR_API_KEY");
 
-// Query only specific fields like "country_code2,time_zone,currency" for an IP address like "1.1.1.1" and skip the "ip" field in the response
+// Get the specified geolocaiton fields like "country_code2,time_zone,currency" for an IP address "1.1.1.1" and skip the "ip" field in the response
 setFieldsParameter("geo,time_zone,currency");
 setIPAddressParameter("1.1.1.1");
 setExcludesParameter("ip");
@@ -70,7 +75,7 @@ getGeolocation(handleResponse, "YOUR_API_KEY");
 ```
 ## Time Zone API
 
-Here are a few different ways of querying Time Zone information from IP Geolocation API.
+Here are a few examples to query Time Zone information from Timezone API.
 
 ```javascript
 // Function to handle the response from IP Geolocation API.
@@ -79,24 +84,25 @@ function handleResponse(response) {
     console.log(response);
 }
 
-// Query time zone information for the calling machine's IP address with an API key (optional, if you're using "Request Origin" feature at IP Geolocation API)
+// Get time zone information for the calling machine's IP address with an API key (optional, if you're using "Request Origin" feature at IP Geolocation API)
 getTimezone(handleResponse, "YOUR_API_KEY");
 
-// To use the "Request Origin" feature at IP Geolocation API, you skip the API key parameter.
+// Don't pass the API key if you're using the "Request Origin" feature at IP Geolocation API
 getTimezone(handleResponse);
 
 // Toggle API calls' async behavior. By default, async is true.
 setAsync(false)
 
-// Query time zone information for an IP address e.g., "1.1.1.1"
+// Get time zone information for an IP address "1.1.1.1" and geolocation information in Italian language **
 setIPAddressParameter("1.1.1.1");
+setLanguageParameter("it");
 getTimezone(handleResponse, "YOUR_API_KEY");
 
-// Query time zone infomration for a time zone ID like "America/New_York"
+// Get time zone infomration for a time zone "America/New_York"
 setTimezoneParameter("America/Los_Angeles");
 getTimezone(handleResponse, "YOUR_API_KEY");
 
-// Query time zone information by latitude and longitude of the location
+// Get time zone information by coordinates of the location
 setCoordinatesParameter("31.4816", "74.3551");
 getTimezone(handleResponse, "YOUR_API_KEY");
 ```
@@ -135,3 +141,14 @@ Here is a sample code to use IP Geolocation API using JQuery SDK:
     });
 </script>
 ```
+
+** IPGeolocation provides geolocation information in the following languages:
+* English (en)
+* German (de)
+* Russian (ru)
+* Japanese (ja)
+* French (fr)
+* Chinese Simplified (cn)
+* Spanish (es)
+* Czech (cs)
+* Italian (it)`
