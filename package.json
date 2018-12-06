@@ -18,14 +18,14 @@
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/ip-geolocation-api-jquery-sdk/-/ip-geolocation-api-jquery-sdk-1.0.5.tgz",
+  "_resolved": "https://registry.npmjs.org/ip-geolocation-api-jquery-sdk/-/ip-geolocation-api-jquery-sdk-1.0.6.tgz",
   "_shasum": "7afe1f670ee1309eb9effb25818c481c5d855593",
   "_spec": "ip-geolocation-api-jquery-sdk",
   "_where": "/home/developer/jQry/npm",
   "author": "ipgeolocation",
   "bundleDependencies": false,
   "deprecated": false,
-  "description": "JQuery SDK for [IP Geolocation API](https://ipgeolocation.io/). You can use this SDK to Geolocate an IP address and get time zone information based on geolocation coordinates, or an IP address.",
+  "description": "[JQuery SDK for IP Geolocation API](https://ipgeolocation.io/documentation/ip-geolocation-api-jquery-sdk-201809051507). You can use this SDK to Geolocate an IP address and get time zone information based on geolocation coordinates, or an IP address.",
   "keywords": [
     "ip",
     "ipgeo",
@@ -46,7 +46,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.0.5",
+  "version": "1.0.6",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/IPGeolocation/ip-geolocation-api-jQuery-sdk.git"

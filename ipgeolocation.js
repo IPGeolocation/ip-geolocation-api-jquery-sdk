@@ -57,7 +57,7 @@ function request (subUrl, callback, apiKey = "") {
     var urlParameters = "";
 
     if(!subUrl) {
-        callback({"status": 401, "message": "Given path to IP Geolocation API is not valid"});
+        callback(JSON.parse("{'status': 401, message: 'Given path to IP Geolocation API is not valid'}"));
         return;
     }
     
@@ -96,14 +96,14 @@ function request (subUrl, callback, apiKey = "") {
         url: "https://api.ipgeolocation.io/".concat(subUrl, urlParameters, ""),
         contentType: "application/json",
         dataType: "json",
-        success: function (data, status, jqXHR) {
+        success: function (result, status, xhr) {
             if (callback) {
-                callback(data);
+                callback(result);
             }
         },
-        error: function (data, jqXHR, status) {
+        error: function (xhr, status, error) {
             if (callback) {
-                callback(data.responseText);
+                callback(JSON.parse(xhr.responseText));
             }
         }
     });
