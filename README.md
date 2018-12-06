@@ -151,4 +151,4 @@ Here is a sample code to use IP Geolocation API using JQuery SDK:
 * Chinese Simplified (cn)
 * Spanish (es)
 * Czech (cs)
-* Italian (it)`
+* Italian (it)
