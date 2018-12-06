@@ -30,7 +30,7 @@ Internet connection is required to run this component.
 Add the following script in your HTML page:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.5/ipgeolocation.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.6/ipgeolocation.min.js"></script>
 ```
 
 ## Geolocation Lookup
