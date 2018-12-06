@@ -152,3 +152,5 @@ Here is a sample code to use IP Geolocation API using JQuery SDK:
 * Spanish (es)
 * Czech (cs)
 * Italian (it)
+
+By default, geolocation information is returned in English. Response in a language other than English is available to paid users only.
