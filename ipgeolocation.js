@@ -8,14 +8,18 @@ var _ipgeolocation = function() {
     var tz = "";
     var latitude = "";
     var longitude = "";
+    var geolocationEndpoint = "ipgeo";
+    var timezoneEndpoint = "timezone";
+    var geolocationResponseName = "_ipgeolocation_geolocation";
+    var timezoneResponseName = "_ipgeolocation_timezone";
 
     function request(subUrl, callback, apiKey = "") {
         if (useSessionStorage) {
-            if (subUrl == "ipgeo" && sessionStorage.getItem("_ipGeolocation") && callback) {
-                callback(JSON.parse(sessionStorage.getItem("_ipGeolocation")));
+            if (subUrl == geolocationEndpoint && sessionStorage.getItem(geolocationResponseName) && callback) {
+                callback(JSON.parse(sessionStorage.getItem(geolocationResponseName)));
                 return;
-            } else if (subUrl == "timezone" && sessionStorage.getItem("_ipTimeZone") && callback) {
-                callback(JSON.parse(sessionStorage.getItem("_ipTimeZone")));
+            } else if (subUrl == timezoneEndpoint && sessionStorage.getItem(timezoneResponseName) && callback) {
+                callback(JSON.parse(sessionStorage.getItem(timezoneResponseName)));
                 return;
             }
         }
@@ -55,32 +59,36 @@ var _ipgeolocation = function() {
             urlParameters = addUrlParameter(urlParameters, "lat", latitude);
             urlParameters = addUrlParameter(urlParameters, "long", longitude);
         }
-    
-        $.ajax ({
-            async: asyncCall,
-            method: "GET",
-            url: "https://api.ipgeolocation.io/".concat(subUrl, urlParameters, ""),
-            contentType: "application/json",
-            dataType: "json",
-            success: function (result, status, xhr) {
-                if (useSessionStorage) {
-                    if (subUrl == "ipgeo") {
-                        sessionStorage.setItem("_ipGeolocation", JSON.stringify(result));
-                    } else if (subUrl == "timezone") {
-                        sessionStorage.setItem("_ipTimeZone", JSON.stringify(result));
+
+        var httpRequest;
+
+        if (window.XMLHttpRequest) {
+            httpRequest = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        httpRequest.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                if (useSessionStorage && this.status == 200) {
+                    key = geolocationResponseName;
+
+                    if (subUrl == timezoneEndpoint) {
+                        key = timezoneResponseName;
                     }
+
+                    sessionStorage.setItem(key, this.responseText);
                 }
     
                 if (callback) {
-                    callback(result);
-                }
-            },
-            error: function (xhr, status, error) {
-                if (callback) {
-                    callback(JSON.parse(xhr.responseText));
+                    callback(JSON.parse(this.responseText));
                 }
             }
-        });
+        };
+
+        httpRequest.open("GET", "https://api.ipgeolocation.io/".concat(subUrl, urlParameters, ""), asyncCall);
+        httpRequest.setRequestHeader("Accept", "application/json");
+        httpRequest.send();
     }
 
     function addUrlParameter(parameters, parameterName, parameterValue) {
@@ -120,10 +128,10 @@ var _ipgeolocation = function() {
             longitudeParameter = longitude;
         },
         getGeolocation: function(callback, apiKey = "") {
-            request("ipgeo", callback, apiKey);
+            request(geolocationEndpoint, callback, apiKey);
         },
         getTimezone: function(callback, apikey = "") {
-            request("timezone", callback, apikey);
+            request(timezoneEndpoint, callback, apikey);
         }
     }
 }();
