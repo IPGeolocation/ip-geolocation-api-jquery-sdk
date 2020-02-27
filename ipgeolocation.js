@@ -13,8 +13,10 @@ var _ipgeolocation = function() {
         if (useSessionStorage) {
             if (subUrl == "ipgeo" && sessionStorage.getItem("_ipGeolocation") && callback) {
                 callback(JSON.parse(sessionStorage.getItem("_ipGeolocation")));
+                return;
             } else if (subUrl == "timezone" && sessionStorage.getItem("_ipTimeZone") && callback) {
                 callback(JSON.parse(sessionStorage.getItem("_ipTimeZone")));
+                return;
             }
         }
     
