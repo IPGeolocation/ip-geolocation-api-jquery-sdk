@@ -18,7 +18,7 @@ Developers can use this JQuery SDK for software and web projects related to, but
 
 You need a valid 'IPGeolocation API key' to use this SDK. [Sign up](https://ipgeolocation.io/signup) here and get your free API key if you don't have one.
 
-**Note:** Complete documentation to use this SDK is also available at [IP Geolocation API JQuery SDK Documentation](https://ipgeolocation.io/documentation/ip-geolocation-api-jquery-sdk-201809051507).
+**Note:** Complete documentation to use this SDK is also available at [IP Geolocation API JQuery SDK Documentation](https://ipgeolocation.io/documentation/ip-geolocation-api-jquery-sdk.html).
 
 ## System Requirements  
 
@@ -30,7 +30,7 @@ Internet connection is required to run this component.
 Add the following script in your HTML page:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.6/ipgeolocation.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.8/ipgeolocation.min.js"></script>
 ```
 
 ## Geolocation Lookup
@@ -46,32 +46,35 @@ function handleResponse(response) {
 }
 
 // Get geolocation for the calling machine's IP address with an API key (optional, if you're using "Request Origin" feature at IP Geolocation API)
-getGeolocation(handleResponse, "YOUR_API_KEY");
+_ipgeolocation.getGeolocation(handleResponse, "YOUR_API_KEY");
 
 // Don't pass the API key if you're using the "Request Origin" feature at IP Geolocation API
-getGeolocation(handleResponse);
+_ipgeolocation.getGeolocation(handleResponse);
+
+// Toggle sessionStorage usage to store API response on client-side. (This is very handy as it will help users to avoid making duplicate API calls for a single visitor.)
+_ipgeolocation.enableSessionStorage(true);
 
 // Toggle API calls' async behavior. By default, async is true.
-setAsync(false)
+_ipgeolocation.makeAsyncCallsToAPI(false);
 
 // Get geolocation for an IP address "1.1.1.1"
-setIPAddressParameter("1.1.1.1");
-getGeolocation(handleResponse, "YOUR_API_KEY");
+_ipgeolocation.setIPAddress("1.1.1.1");
+_ipgeolocation.getGeolocation(handleResponse, "YOUR_API_KEY");
 
 // Get geolocation for an IP address "1.1.1.1" in Russian language **
-setLanguageParameter("ru");
-setIPAddressParameter("1.1.1.1");
-getGeolocation(handleResponse, "YOUR_API_KEY");
+_ipgeolocation.setLanguage("ru");
+_ipgeolocation.setIPAddress("1.1.1.1");
+_ipgeolocation.getGeolocation(handleResponse, "YOUR_API_KEY");
 
 // Get the specific geolocation fields "country_code2,time_zone,currency" for the calling machine's IP address
-setFieldsParameter("geo,time_zone,currency");
-getGeolocation(handleResponse, "YOUR_API_KEY");
+_ipgeolocation.setFields("geo,time_zone,currency");
+_ipgeolocation.getGeolocation(handleResponse, "YOUR_API_KEY");
 
 // Get the specified geolocaiton fields like "country_code2,time_zone,currency" for an IP address "1.1.1.1" and skip the "ip" field in the response
-setFieldsParameter("geo,time_zone,currency");
-setIPAddressParameter("1.1.1.1");
-setExcludesParameter("ip");
-getGeolocation(handleResponse, "YOUR_API_KEY");
+_ipgeolocation.setFields("geo,time_zone,currency");
+_ipgeolocation.setIPAddress("1.1.1.1");
+_ipgeolocation.setExcludes("ip");
+_ipgeolocation.getGeolocation(handleResponse, "YOUR_API_KEY");
 ```
 ## Time Zone API
 
@@ -85,26 +88,29 @@ function handleResponse(response) {
 }
 
 // Get time zone information for the calling machine's IP address with an API key (optional, if you're using "Request Origin" feature at IP Geolocation API)
-getTimezone(handleResponse, "YOUR_API_KEY");
+_ipgeolocation.getTimezone(handleResponse, "YOUR_API_KEY");
 
 // Don't pass the API key if you're using the "Request Origin" feature at IP Geolocation API
-getTimezone(handleResponse);
+_ipgeolocation.getTimezone(handleResponse);
+
+// Toggle sessionStorage usage to store API response on client-side. (This is very handy as it will help users to avoid making duplicate API calls for a single visitor.)
+_ipgeolocation.enableSessionStorage(true);
 
 // Toggle API calls' async behavior. By default, async is true.
-setAsync(false)
+_ipgeolocation.makeAsyncCallsToAPI(false);
 
 // Get time zone information for an IP address "1.1.1.1" and geolocation information in Italian language **
-setIPAddressParameter("1.1.1.1");
-setLanguageParameter("it");
-getTimezone(handleResponse, "YOUR_API_KEY");
+_ipgeolocation.setIPAddress("1.1.1.1");
+_ipgeolocation.setLanguage("it");
+_ipgeolocation.getTimezone(handleResponse, "YOUR_API_KEY");
 
 // Get time zone infomration for a time zone "America/New_York"
-setTimezoneParameter("America/Los_Angeles");
-getTimezone(handleResponse, "YOUR_API_KEY");
+_ipgeolocation.setTimeZone("America/Los_Angeles");
+_ipgeolocation.getTimezone(handleResponse, "YOUR_API_KEY");
 
 // Get time zone information by coordinates of the location
-setCoordinatesParameter("31.4816", "74.3551");
-getTimezone(handleResponse, "YOUR_API_KEY");
+_ipgeolocation.setCoordinates("31.4816", "74.3551");
+_ipgeolocation.getTimezone(handleResponse, "YOUR_API_KEY");
 ```
 
 ## Example
@@ -113,27 +119,27 @@ Here is a sample code to use IP Geolocation API using JQuery SDK:
 
 ```javascript
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.5/ipgeolocation.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.8/ipgeolocation.min.js"></script>
 
 <script>
+    // On call to IPGeolocation API on each page during a user's visit, API response will be served from sessionStorage after the first page.
+     
+    _ipgeolocation.enableSessionStorage(true);
+
     var ip = sessionStorage.getItem("ip");
     var country_name = sessionStorage.getItem("country_name");
     var country_code2 = sessionStorage.getItem("country_code2");
             
     if (!ip || !country_name || !country_code2) {
-        setAsync(false);
-        setFieldsParameter("country_name,country_code2");
-        getGeolocation(handleGeolocationResponse, "YOUR_API_KEY");
+        _ipgeolocation.makeAsyncCallsToAPI(false);
+        _ipgeolocation.setFields("country_name,country_code2");
+        _ipgeolocation.getGeolocation(handleResponse, "YOUR_API_KEY");
     }
 
-    function handleGeolocationResponse(json) {
+    function handleResponse(json) {
         ip = json.ip;
         country_name = json.country_name;
         country_code2 = json.country_code2;
-
-        sessionStorage.setItem("ip", ip);
-        sessionStorage.setItem("country_name", country_name);
-        sessionStorage.setItem("country_code2", country_code2);
     }
                 
     $(document).ready(function() {
