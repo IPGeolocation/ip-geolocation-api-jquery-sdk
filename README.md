@@ -30,7 +30,7 @@ Internet connection is required to run this component.
 Add the following script in your HTML page:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.8/ipgeolocation.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.9/ipgeolocation.min.js"></script>
 ```
 
 ## Geolocation Lookup
@@ -119,11 +119,10 @@ Here is a sample code to use IP Geolocation API using JQuery SDK:
 
 ```javascript
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.8/ipgeolocation.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.0.9/ipgeolocation.min.js"></script>
 
 <script>
     // On call to IPGeolocation API on each page during a user's visit, API response will be served from sessionStorage after the first page.
-     
     _ipgeolocation.enableSessionStorage(true);
 
     var ip = sessionStorage.getItem("ip");
