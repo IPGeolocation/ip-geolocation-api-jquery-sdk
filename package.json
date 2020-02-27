@@ -18,7 +18,7 @@
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/ip-geolocation-api-jquery-sdk/-/ip-geolocation-api-jquery-sdk-1.0.7.tgz",
+  "_resolved": "https://registry.npmjs.org/ip-geolocation-api-jquery-sdk/-/ip-geolocation-api-jquery-sdk-1.0.8.tgz",
   "_shasum": "7afe1f670ee1309eb9effb25818c481c5d855593",
   "_spec": "ip-geolocation-api-jquery-sdk",
   "_where": "/home/developer/jQry/npm",
@@ -45,7 +45,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.0.7",
+  "version": "1.0.8",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/IPGeolocation/ip-geolocation-api-jQuery-sdk.git"
