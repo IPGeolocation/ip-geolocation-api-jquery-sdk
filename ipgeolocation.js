@@ -1,3 +1,4 @@
+var ess = false;
 var asyncParameter = true;
 var ipAddressParameter = "";
 var excludesParameter = "";
@@ -7,40 +8,44 @@ var tzParameter = "";
 var latitudeParameter = "";
 var longitudeParameter = "";
 
+function enableSessionStorage(enable = false) {
+    ess = enable;
+}
+
 function setAsync(async = true) {
     asyncParameter = async;
 }
 
-function setIPAddressParameter (ip = "") {
+function setIPAddressParameter(ip = "") {
     ipAddressParameter = ip;
 }
 
-function setExcludesParameter (excludes = "") {
+function setExcludesParameter(excludes = "") {
     excludesParameter = excludes;
 }
 
-function setFieldsParameter (fields = "") {
+function setFieldsParameter(fields = "") {
     fieldsParameter = fields;
 }
 
-function setLanguageParameter (lang = "") {
+function setLanguageParameter(lang = "") {
     langParameter = lang;
 }
 
-function setTimezoneParameter (tz = "") {
+function setTimezoneParameter(tz = "") {
     tzParameter = tz;
 }
 
-function setCoordinatesParameter (latitude = "", longitude = "") {
+function setCoordinatesParameter(latitude = "", longitude = "") {
     latitudeParameter = latitude;
     longitudeParameter = longitude;
 }
 
-function getGeolocation (callback, apiKey = "") {
+function getGeolocation(callback, apiKey = "") {
     request("ipgeo", callback, apiKey);
 }
 
-function getTimezone (callback, apikey = "") {
+function getTimezone(callback, apikey = "") {
     request("timezone", callback, apikey);
 }
 
@@ -50,13 +55,22 @@ function addUrlParameter(parameters, parameterName, parameterValue) {
     } else {
         parameters = "?".concat(parameterName, "=", parameterValue);
     }
+    
     return parameters;
 }
 
-function request (subUrl, callback, apiKey = "") {
+function request(subUrl, callback, apiKey = "") {
+    if (ess) {
+        if (subUrl == "ipgeo" && sessionStorage.getItem("_ipGeolocation") && callback) {
+            callback(JSON.parse(sessionStorage.getItem("_ipGeolocation")));
+        } else if (subUrl == "timezone" && sessionStorage.getItem("_ipTimeZone") && callback) {
+            callback(JSON.parse(sessionStorage.getItem("_ipTimeZone")));
+        }
+    }
+
     var urlParameters = "";
 
-    if(!subUrl) {
+    if (!subUrl) {
         callback(JSON.parse("{'status': 401, message: 'Given path to IP Geolocation API is not valid'}"));
         return;
     }
@@ -97,6 +111,14 @@ function request (subUrl, callback, apiKey = "") {
         contentType: "application/json",
         dataType: "json",
         success: function (result, status, xhr) {
+            if (ess) {
+                if (subUrl == "ipgeo") {
+                    sessionStorage.setItem("_ipGeolocation", JSON.stringify(result));
+                } else if (subUrl == "timezone") {
+                    sessionStorage.setItem("_ipTimeZone", JSON.stringify(result));
+                }
+            }
+
             if (callback) {
                 callback(result);
             }
