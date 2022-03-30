@@ -26,6 +26,10 @@ You need a valid 'IPGeolocation API key' to use this SDK. [Sign up](https://ipge
 
 Internet connection is required to run this component.
 
+## Documentation
+Use the following URL to visit documentation
+[https://ipgeolocation.io/documentation.html](https://ipgeolocation.io/documentation.html)
+
 ## Installation
 ### CDN Link
 
@@ -77,6 +81,12 @@ _ipgeolocation.setFields("geo,time_zone,currency");
 _ipgeolocation.setIPAddress("1.1.1.1");
 _ipgeolocation.setExcludes("ip");
 _ipgeolocation.getGeolocation(handleResponse, "YOUR_API_KEY");
+
+// Get geolocation along with hostname, security detail and user-agent detail.
+_ipgeolocation.includeHostname(true);
+_ipgeolocation.includeSecurity(true);
+_ipgeolocation.includeUserAgent(true);
+_ipgeolocation.getGeolocation(handleResponse, "YOUR_API_KEY");
 ```
 ## Time Zone API
 
@@ -113,6 +123,31 @@ _ipgeolocation.getTimezone(handleResponse, "YOUR_API_KEY");
 // Get time zone information by coordinates of the location
 _ipgeolocation.setCoordinates("31.4816", "74.3551");
 _ipgeolocation.getTimezone(handleResponse, "YOUR_API_KEY");
+
+// Get time zone information by location
+_ipgeolocation.setLocation("Amman, Jordan");
+_ipgeolocation.getTimezone(handleResponse, "YOUR_API_KEY");
+```
+
+## Time Zone API
+
+Here are a few examples to query Time Zone information from Timezone API.
+
+```javascript
+// Function to handle the response from IP Geolocation API.
+// "response" is a JSON object returned from IP Geolocation API.
+function handleResponse(response) {
+    console.log(response);
+}
+
+// Toggle sessionStorage usage to store API response on client-side. (This is very handy as it will help users to avoid making duplicate API calls for a single visitor.)
+_ipgeolocation.enableSessionStorage(true);
+
+// Toggle API calls' async behavior. By default, async is true.
+_ipgeolocation.makeAsyncCallsToAPI(false);
+
+// Get User Agent detail.
+_ipgeolocation.getUserAgent(handleResponse, "YOUR_API_KEY");
 ```
 
 ## Example
@@ -159,4 +194,4 @@ Here is a sample code to use IP Geolocation API using JQuery SDK:
 * Czech (cs)
 * Italian (it)
 
-By default, geolocation information is returned in English. Response in a language other than English is available to paid users only.
+By default, geolocation information is returned into English. Response in a language other than English is available to paid users only.
