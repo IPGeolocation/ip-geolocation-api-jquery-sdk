@@ -4,7 +4,7 @@
 
 [IPGeolocation API](https://ipgeolocation.io) is the solution to identify country code (ISO2 and ISO3 standard), country name, continent code, continent name, country capital, state/province, district, city, zip code, latitude and longitude of city, is country belongs to Europian Union, calling code, top level domain (TLD), languages, country flag, internet service provider (ISP), connection type, organization, geoname ID, currency code, currency name, time zone ID, time zone offset, current time in the time zone, is time zone in daylight saving time, and total daylight savings. This document provides important information to help you get up to speed with IPGeolocation API using IP Geolocation API JQuery SDK.
 
-**Note:** This SDK is compatible with Vanilla JS and doesn't require JQuery as we have dropped the JQuery dependencies from v1.1.0 in this SDK.
+**Note:** This SDK is compatible with Vanilla JS and doesn't require JQuery as we have dropped the JQuery dependencies from v1.1.1 in this SDK.
 
 Developers can use this JQuery SDK for software and web projects related to, but not limited to:
 
@@ -36,7 +36,7 @@ Use the following URL to visit documentation
 Add the following script in your HTML page:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.1.0/ipgeolocation.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.1.1/ipgeolocation.min.js"></script>
 ```
 
 ## Geolocation Lookup
@@ -155,7 +155,7 @@ _ipgeolocation.getUserAgent(handleResponse, "YOUR_API_KEY");
 Here is a sample code to use IP Geolocation API using JQuery SDK:
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.1.0/ipgeolocation.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.1.1/ipgeolocation.min.js"></script>
 
 <script>
     // On call to IPGeolocation API on each page during a user's visit, API response will be served from sessionStorage after the first page.
