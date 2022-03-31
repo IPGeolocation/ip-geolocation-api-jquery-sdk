@@ -173,7 +173,6 @@ var _ipgeolocation = function() {
             userAgent = u;
         },
         setFields: function(f = "") {
-            console.log("set");
             fields = f;
         },
         setExcludes: function(e = "") {
