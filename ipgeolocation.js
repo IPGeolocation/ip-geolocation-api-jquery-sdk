@@ -1,11 +1,11 @@
 var _ipgeolocation = function() {
     var useSessionStorage = false;
     var asyncCall = true;
-    var isHostname = false;
-    var isLiveHostname = false;
-    var isHostnameFallbackLive = false;
-    var isSecurity = false;
-    var isUserAgent = false;
+    var hostname = false;
+    var liveHostname = false;
+    var hostnameFallbackLive = false;
+    var security = false;
+    var userAgent = false;
     var ipAddress = "";
     var excludes = "";
     var fields = "";
@@ -58,34 +58,38 @@ var _ipgeolocation = function() {
             urlParameters = addUrlParameter(urlParameters, "excludes", excludes);
         }
         
-        if(isHostname || isSecurity || isUserAgent){
-            var val = "";
-            var includeHost = false;
-            if(isHostname){
-                val = "hostname";
-                includeHost = true;
-            } else if(isHostnameFallbackLive) {
-                val = "hostnameFallbackLive";
-                includeHost = true;
-            } else if(isLiveHostname) {
-                val = "liveHostname";
-                includeHost = true;
+        if (hostname || security || userAgent) {
+            var parameterValue = "";
+            var hostnameSelected = false;
+
+            if (hostname) {
+                parameterValue = "hostname";
+                hostnameSelected = true;
+            } else if (hostnameFallbackLive) {
+                parameterValue = "hostnameFallbackLive";
+                hostnameSelected = true;
+            } else if (liveHostname) {
+                parameterValue = "liveHostname";
+                hostnameSelected = true;
             }
-            if(isSecurity){
-                if(includeHost){
-                    val = val + ",security";
-                } else{
-                    val = "security";
+
+            if (security) {
+                if (hostnameSelected) {
+                    parameterValue = parameterValue + ",security";
+                } else {
+                    parameterValue = "security";
                 }
             }
-            if(isUserAgent){
-                if(includeHost || isSecurity){
-                    val = val + ",useragent";
-                } else{
-                    val = "useragent";
+
+            if (userAgent) {
+                if (hostnameSelected || security) {
+                    parameterValue = parameterValue + ",useragent";
+                } else {
+                    parameterValue = "useragent";
                 }
             }
-            urlParameters = addUrlParameter(urlParameters, "include", val);
+
+            urlParameters = addUrlParameter(urlParameters, "include", parameterValue);
         }
         
         if (lang) {
@@ -101,7 +105,7 @@ var _ipgeolocation = function() {
             urlParameters = addUrlParameter(urlParameters, "long", longitude);
         }
         
-        if(location){
+        if (location){
             urlParameters = addUrlParameter(urlParameters, "location", location);
         }
 
@@ -154,19 +158,19 @@ var _ipgeolocation = function() {
             asyncCall = a;
         },
         includeHostname: function(h = false) {
-            isHostname = h;
+            hostname = h;
         },
         includeHostnameFallbackLive: function(h = false) {
-            isHostnameFallbackLive = h;
+            hostnameFallbackLive = h;
         },
         includeLiveHostname: function(h = false) {
-            isLiveHostname = h;
+            liveHostname = h;
         },
         includeSecurity: function(s = false) {
-            isSecurity = s;
+            security = s;
         },
         includeUserAgent: function(u = false) {
-            isUserAgent = u;
+            userAgent = u;
         },
         setFields: function(f = "") {
             console.log("set");
