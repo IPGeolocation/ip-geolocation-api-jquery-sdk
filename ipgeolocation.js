@@ -109,46 +109,84 @@ const _ipgeolocation = function() {
             urlParameters = addUrlParameter(urlParameters, "location", location);
         }
 
-        try {
-            const response = await fetch("https://api.ipgeolocation.io/".concat(subUrl, urlParameters, ""), {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json"
-                }
-            });
-            const json = await response.json();
+        if (window.fetch) {
+            try {
+                if (asyncCall) {
+                    fetch("https://api.ipgeolocation.io/".concat(subUrl, urlParameters, ""), {
+                        method: "GET",
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then((response) => {
+                        if (!response.ok) {
+                            if (callback) {
+                                callback(JSON.parse("{'status': ".concat(response.status, ", 'message': '", json.message, "'}")));
+                            } else {
+                                console.error("status:", response.status, json);
+                            }
+                        }
 
-            if (!response.ok) {
-                if (callback) {
-                    callback(JSON.parse("{'status': ".concat(response.status, ", 'message': '", json.message, "'}")));
-                } else {
-                    console.error("status:", response.status, json);
-                }
-            }
-
-            if (useSessionStorage) {
-                key = geolocationResponseName;
-
-                if (subUrl === timezoneEndpoint) {
-                    key = timezoneResponseName;
-                } else if (subUrl === useragentEndpoint) {
-                    key = useragentResponseName;
-                }
-
-                sessionStorage.setItem(key, JSON.stringify(json));
-            }
-
-            if (callback) {
-                callback(json);
-            }
-        } catch (error) {
-            console.error(error);
+                        return response.json();
+                    })
+                    .then((json) => {
+                        if (useSessionStorage) {
+                            key = geolocationResponseName;
             
-            if (callback) {
-                callback(JSON.parse("{'status': 400, 'message': 'Something went wrong while query ipgeolocation.io API. If the error persists, contact us at support@ipgeolocation.io'}"));
-            }
-        }
+                            if (subUrl === timezoneEndpoint) {
+                                key = timezoneResponseName;
+                            } else if (subUrl === useragentEndpoint) {
+                                key = useragentResponseName;
+                            }
+            
+                            sessionStorage.setItem(key, JSON.stringify(json));
+                        }
+            
+                        if (callback) {
+                            callback(json);
+                        }
+                    });
+                } else {
+                    const response = await fetch("https://api.ipgeolocation.io/".concat(subUrl, urlParameters, ""), {
+                        method: "GET",
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    });
+                    const json = await response.json();
+
+                    if (!response.ok) {
+                        if (callback) {
+                            callback(JSON.parse("{'status': ".concat(response.status, ", 'message': '", json.message, "'}")));
+                        } else {
+                            console.error("status:", response.status, json);
+                        }
+                    }
         
+                    if (useSessionStorage) {
+                        key = geolocationResponseName;
+        
+                        if (subUrl === timezoneEndpoint) {
+                            key = timezoneResponseName;
+                        } else if (subUrl === useragentEndpoint) {
+                            key = useragentResponseName;
+                        }
+        
+                        sessionStorage.setItem(key, JSON.stringify(json));
+                    }
+        
+                    if (callback) {
+                        callback(json);
+                    }
+                }            
+            } catch (error) {
+                console.error(error);
+                
+                if (callback) {
+                    callback(JSON.parse("{'status': 400, 'message': 'Something went wrong while query ipgeolocation.io API. If the error persists, contact us at support@ipgeolocation.io'}"));
+                }
+            }
+        }        
     }
 
     function addUrlParameter(parameters, parameterName, parameterValue) {
