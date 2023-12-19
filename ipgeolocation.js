@@ -121,28 +121,20 @@ const _ipgeolocation = function() {
             if (asyncCall) {
                 fetch(url, requestOptions)
                 .then((response) => {
-                    if (!response.ok) {
-                        callback(JSON.parse("{'status': ".concat(response.status, ", 'message': '", json.message, "'}")));
-                    }
-
                     return response.json();
                 })
-                .then((json) => {
-                    if (useSessionStorage) {
+                .then((json) => {       
+                    if (useSessionStorage && !json.message) {
                         cacheInSessionStorage(subUrl, json);
                     }
-        
+
                     callback(json);
                 });
             } else {
                 const response = await fetch(url, requestOptions);
                 const json = await response.json();
 
-                if (!response.ok) {
-                    callback(JSON.parse("{'status': ".concat(response.status, ", 'message': '", json.message, "'}")));
-                }
-    
-                if (useSessionStorage) {
+                if (response.ok && useSessionStorage) {
                     cacheInSessionStorage(subUrl, json);
                 }
     
@@ -151,7 +143,7 @@ const _ipgeolocation = function() {
         } catch (error) {
             console.error(error);
             
-            callback(JSON.parse("{'status': 400, 'message': 'Something went wrong while query ipgeolocation.io API. If the error persists, contact us at support@ipgeolocation.io'}"));
+            callback(JSON.parse("{'status': 400, 'message': 'Something went wrong while querying ipgeolocation.io API. If the error persists, contact us at support@ipgeolocation.io'}"));
         }
     }
 
