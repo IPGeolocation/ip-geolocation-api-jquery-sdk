@@ -1,44 +1,44 @@
-var _ipgeolocation = function() {
-    var useSessionStorage = false;
-    var asyncCall = true;
-    var hostname = false;
-    var liveHostname = false;
-    var hostnameFallbackLive = false;
-    var security = false;
-    var userAgent = false;
-    var ipAddress = "";
-    var excludes = "";
-    var fields = "";
-    var lang = "en";
-    var tz = "";
-    var latitude = "";
-    var longitude = "";
-    var location = "";
-    var geolocationEndpoint = "ipgeo";
-    var timezoneEndpoint = "timezone";
-    var useragentEndpoint = "user-agent";
-    var geolocationResponseName = "_ipgeolocation_geolocation";
-    var timezoneResponseName = "_ipgeolocation_timezone";
-    var useragentResponseName = "_ipgeolocation_useragent";
+const _ipgeolocation = function() {
+    let useSessionStorage = false;
+    let asyncCall = true;
+    let hostname = false;
+    let liveHostname = false;
+    let hostnameFallbackLive = false;
+    let security = false;
+    let userAgent = false;
+    let ipAddress = "";
+    let excludes = "";
+    let fields = "";
+    let lang = "en";
+    let tz = "";
+    let latitude = "";
+    let longitude = "";
+    let location = "";
+    const geolocationEndpoint = "ipgeo";
+    const timezoneEndpoint = "timezone";
+    const useragentEndpoint = "user-agent";
+    const geolocationResponseName = "_ipgeolocation_geolocation";
+    const timezoneResponseName = "_ipgeolocation_timezone";
+    const useragentResponseName = "_ipgeolocation_useragent";
 
-    function request(subUrl, callback, apiKey = "") {
+    async function request(subUrl, callback, apiKey = "") {
         if (useSessionStorage) {
-            if (subUrl == geolocationEndpoint && sessionStorage.getItem(geolocationResponseName) && callback) {
+            if (subUrl === geolocationEndpoint && sessionStorage.getItem(geolocationResponseName) && callback) {
                 callback(JSON.parse(sessionStorage.getItem(geolocationResponseName)));
                 return;
-            } else if (subUrl == timezoneEndpoint && sessionStorage.getItem(timezoneResponseName) && callback) {
+            } else if (subUrl === timezoneEndpoint && sessionStorage.getItem(timezoneResponseName) && callback) {
                 callback(JSON.parse(sessionStorage.getItem(timezoneResponseName)));
                 return;
-            } else if (subUrl == useragentEndpoint && sessionStorage.getItem(useragentResponseName) && callback) {
+            } else if (subUrl === useragentEndpoint && sessionStorage.getItem(useragentResponseName) && callback) {
                 callback(JSON.parse(sessionStorage.getItem(useragentResponseName)));
                 return;
             }
         }
     
-        var urlParameters = "";
+        let urlParameters = "";
     
         if (!subUrl) {
-            callback(JSON.parse("{'status': 401, message: 'Given path to IP Geolocation API is not valid'}"));
+            callback(JSON.parse("{'status': 401, 'message': 'Given path to IP Geolocation API is not valid'}"));
             return;
         }
         
@@ -59,8 +59,8 @@ var _ipgeolocation = function() {
         }
         
         if (hostname || security || userAgent) {
-            var parameterValue = "";
-            var hostnameSelected = false;
+            let parameterValue = "";
+            let hostnameSelected = false;
 
             if (hostname) {
                 parameterValue = "hostname";
@@ -105,39 +105,46 @@ var _ipgeolocation = function() {
             urlParameters = addUrlParameter(urlParameters, "long", longitude);
         }
         
-        if (location){
+        if (location) {
             urlParameters = addUrlParameter(urlParameters, "location", location);
         }
 
-        var httpRequest;
-
-        if (window.XMLHttpRequest) {
-            httpRequest = new XMLHttpRequest();
-        } else if (window.ActiveXObject) {
-            httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
-        httpRequest.onreadystatechange = function() {
-            if (this.readyState == 4) {
-                if (useSessionStorage && this.status == 200) {
-                    key = geolocationResponseName;
-
-                    if (subUrl == timezoneEndpoint) {
-                        key = timezoneResponseName;
-                    }
-
-                    sessionStorage.setItem(key, this.responseText);
-                }
-    
-                if (callback) {
-                    callback(JSON.parse(this.responseText));
-                }
+        const url = "https://api.ipgeolocation.io/".concat(subUrl, urlParameters, "");
+        const requestOptions = {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
             }
         };
 
-        httpRequest.open("GET", "https://api.ipgeolocation.io/".concat(subUrl, urlParameters, ""), asyncCall);
-        httpRequest.setRequestHeader("Accept", "application/json");
-        httpRequest.send();
+        try {
+            if (asyncCall) {
+                fetch(url, requestOptions)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((json) => {       
+                    if (useSessionStorage && !json.message) {
+                        cacheInSessionStorage(subUrl, json);
+                    }
+
+                    callback(json);
+                });
+            } else {
+                const response = await fetch(url, requestOptions);
+                const json = await response.json();
+
+                if (response.ok && useSessionStorage) {
+                    cacheInSessionStorage(subUrl, json);
+                }
+    
+                callback(json);
+            }
+        } catch (error) {
+            console.error(error);
+            
+            callback(JSON.parse("{'status': 400, 'message': 'Something went wrong while querying ipgeolocation.io API. If the error persists, contact us at support@ipgeolocation.io'}"));
+        }
     }
 
     function addUrlParameter(parameters, parameterName, parameterValue) {
@@ -148,6 +155,18 @@ var _ipgeolocation = function() {
         }
     
         return parameters;
+    }
+
+    function cacheInSessionStorage(endpoint, json) {
+        let key = geolocationResponseName;
+
+        if (endpoint === timezoneEndpoint) {
+            key = timezoneResponseName;
+        } else if (endpoint === useragentEndpoint) {
+            key = useragentResponseName;
+        }
+
+        sessionStorage.setItem(key, JSON.stringify(json));
     }
 
     return {
