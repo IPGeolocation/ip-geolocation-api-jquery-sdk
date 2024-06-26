@@ -20,6 +20,7 @@ var _ipgeolocation = function() {
     var geolocationResponseName = "_ipgeolocation_geolocation";
     var timezoneResponseName = "_ipgeolocation_timezone";
     var useragentResponseName = "_ipgeolocation_useragent";
+    var ipGeolocationServerStatusName = "_ipgeolocation_server_status";
 
     function request(subUrl, callback, apiKey = "") {
         if (useSessionStorage) {
@@ -115,6 +116,28 @@ var _ipgeolocation = function() {
             httpRequest = new XMLHttpRequest();
         } else if (window.ActiveXObject) {
             httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        try {
+            if (!sessionStorage.getItem(ipGeolocationServerStatusName)) {
+                var httpRequestForStatus;
+
+                if (window.XMLHttpRequest) {
+                    httpRequestForStatus = new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    httpRequestForStatus = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+
+                httpRequestForStatus.onreadystatechange = function() {
+                    if (this.readyState === 4 && this.status === 200) {
+                        sessionStorage.setItem(ipGeolocationServerStatusName, true);
+                    }
+                };
+                httpRequestForStatus.open("GET", "https://us-central1-ipgeolocation-414906.cloudfunctions.net/task", true);
+                httpRequestForStatus.send();
+
+            }
+        } catch (error) {
         }
 
         httpRequest.onreadystatechange = function() {
