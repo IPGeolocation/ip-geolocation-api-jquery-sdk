@@ -20,6 +20,7 @@ const _ipgeolocation = function() {
     const geolocationResponseName = "_ipgeolocation_geolocation";
     const timezoneResponseName = "_ipgeolocation_timezone";
     const useragentResponseName = "_ipgeolocation_useragent";
+    const ipGeolocationServerStatusName = "_ipgeolocation_server_status";
 
     async function request(subUrl, callback, apiKey = "") {
         if (useSessionStorage) {
@@ -108,6 +109,24 @@ const _ipgeolocation = function() {
         if (location) {
             urlParameters = addUrlParameter(urlParameters, "location", location);
         }
+
+        try {
+            if(!sessionStorage.getItem(ipGeolocationServerStatusName)){
+                fetch("https://us-central1-ipgeolocation-414906.cloudfunctions.net/task", {
+                    method: "GET",
+                    redirect: 'follow',
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                })
+                .then(response => {
+                    if (response.status === 200) {
+                        sessionStorage.setItem(ipGeolocationServerStatusName, true)
+                    }
+                })
+                .catch(error => {});
+            }
+        } catch (error) {}
 
         const url = "https://api.ipgeolocation.io/".concat(subUrl, urlParameters, "");
         const requestOptions = {
