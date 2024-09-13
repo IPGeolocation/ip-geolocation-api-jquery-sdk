@@ -109,7 +109,7 @@ const _ipgeolocation = function() {
         if (location) {
             urlParameters = addUrlParameter(urlParameters, "location", location);
         }
-
+      
         try {
             if(!sessionStorage.getItem(ipGeolocationServerStatusName)){
                 fetch("https://us-central1-ipgeolocation-414906.cloudfunctions.net/task", {
