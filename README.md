@@ -36,7 +36,7 @@ Use the following URL to visit documentation
 Add the following script in your HTML page:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.1.2/ipgeolocation.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.1.4/ipgeolocation.min.js"></script>
 ```
 
 ## Geolocation Lookup
@@ -155,15 +155,15 @@ _ipgeolocation.getUserAgent(handleResponse, "YOUR_API_KEY");
 Here is a sample code to use IP Geolocation API using JQuery SDK:
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.1.1/ipgeolocation.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ip-geolocation-api-jquery-sdk@1.1.4/ipgeolocation.min.js"></script>
 
 <script>
     // On call to IPGeolocation API on each page during a user's visit, API response will be served from sessionStorage after the first page.
     _ipgeolocation.enableSessionStorage(true);
 
-    var ip = sessionStorage.getItem("ip");
-    var country_name = sessionStorage.getItem("country_name");
-    var country_code2 = sessionStorage.getItem("country_code2");
+    let ip = sessionStorage.getItem("ip");
+    let country_name = sessionStorage.getItem("country_name");
+    let country_code2 = sessionStorage.getItem("country_code2");
             
     if (!ip || !country_name || !country_code2) {
         _ipgeolocation.makeAsyncCallsToAPI(false);
