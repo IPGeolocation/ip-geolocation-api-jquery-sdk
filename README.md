@@ -67,7 +67,7 @@ The documentation below corresponds to the available APIs:
 For a detailed comparison of what each plan offers, visit the [Pricing Page](https://ipgeolocation.io/pricing.html).
 
 ## Authentication Setup
-To authenticate API requests, you'll need an API key from [ipgeolocation.io](https://ipgeolocation.io).
+To authenticate API requests, you'll need an API key from [IPGeolocation.io](https://ipgeolocation.io).
 
 ### How to Get Your API Key
 
@@ -232,7 +232,7 @@ Here is a sample code to use IP Geolocation API using JQuery SDK:
 </script>
 ```
 ## Supported Languages
-IPGeolocation provides geolocation information in the following languages:
+IPGeolocation.io provides geolocation information in the following languages:
 * English (en)
 * German (de)
 * Russian (ru)
