@@ -1,14 +1,14 @@
 # IP Geolocation API JQuery SDK
 
 ## Overview
-The official **JQuery Library/SDK** for **[IPGeolocation.io](https://ipgeolocation.io)**'s set of APIs, provides a quick, developer friendly, way to access IP Location, threat intelligence, Timezone, Astronomy, ASN, Abuse Contact, and user-agent data. Lookup your own IP or provide any IPv4, IPv6 or domain name to get structured results in jquery, without the need for manual HTTP handling.
+The official **JQuery Library/SDK** for **[IPGeolocation.io](https://ipgeolocation.io)**'s set of APIs, provides a quick, developer friendly, way to access IP Location, threat intelligence, Time Zone, Astronomy, ASN, Abuse Contact, and user-agent data. Lookup your own IP or provide any IPv4, IPv6 or domain name to get structured results in jquery, without the need for manual HTTP handling.
 
-- [IP Geolocation API](https://ipgeolocation.io/ip-location-api.html): Get all-in-one unified solution for **location** (city, locality, state, country, etc.), **currency**, **network** (AS number, ASN name, organization, asn type, date of allocation, company/ISP name, company type, company domain), **timezone** , **useragent** string parsing, **security** (threat score, is_tor, is_bot, proxy_provider, cloud_provider), and **abuse contact** (route/CIDR network, country, address, email, phone numbers) information.
+- [IP Geolocation API](https://ipgeolocation.io/ip-location-api.html): Get all-in-one unified solution for **location** (city, locality, state, country, etc.), **currency**, **network** (AS number, ASN name, organization, ASN type, date of allocation, company/ISP name, company type, company domain), **time zone**, **useragent** string parsing, **security** (threat score, is_tor, is_bot, proxy_provider, cloud_provider), and **abuse contact** (route/CIDR network, country, address, email, phone numbers) information.
 - [IP Security API](https://ipgeolocation.io/ip-security-api.html): Get security, network, location, hostname, time zone and useragent parsing.
 - [ASN API](https://ipgeolocation.io/asn-api.html): Get ASN details along with peers, upstreams, downstreams, routes, and raw WHOIS.
 - [Abuse Contact API](https://ipgeolocation.io/ip-abuse-contact-api.html): Get abuse emails, phone numbers, kind, organization, route/CIDR network and country.
 - [Astronomy API](https://ipgeolocation.io/astronomy-api.html): Get sunrise, sunset, moonrise, moonset, moon phases with precise twilight period times in combination with location information.
-- [Timezone API](https://ipgeolocation.io/timezone-api.html): Get time zone name, multiple time formats, daylight saving status and its details along with location information.
+- [Time Zone API](https://ipgeolocation.io/timezone-api.html): Get time zone name, multiple time formats, daylight saving status and its details along with location information.
 - [Timezone Convert API](https://ipgeolocation.io/timezone-api.html): Convert time between time zone names, geo coordinates, location addresses, IATA codes, ICAO codes, or UN/LOCODE.
 - [User Agent API](https://ipgeolocation.io/user-agent-api.html): Get browser, Operating System, and device info from single or multiple Useragent string parsing.
 
@@ -139,7 +139,7 @@ _ipgeolocation.getGeolocation(handleResponse, "YOUR_API_KEY");
 ```
 ## Time Zone API Lookup Examples
 
-Here are a few examples to query Time Zone information from Timezone API.
+Here are a few examples to query time zone information from the Time Zone API.
 
 ```javascript
 // Function to handle the response from IP Geolocation API.
